@@ -1,6 +1,7 @@
 package com.manhnd.cloudnative.books.command;
 
 import com.manhnd.cloudnative.books.domain.Book;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,7 +35,7 @@ public class BookHttpController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Book post(@RequestBody Book book) {
+    public Book post(@Valid @RequestBody Book book) {
         return bookService.addBookToCatalog(book);
     }
 
@@ -45,7 +46,7 @@ public class BookHttpController {
     }
 
     @PutMapping("{isbn}")
-    public Book put(@PathVariable String isbn, @RequestBody Book book) {
+    public Book put(@PathVariable String isbn,@Valid @RequestBody Book book) {
         return bookService.editBookDetails(isbn, book);
     }
 }

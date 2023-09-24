@@ -1,3 +1,15 @@
 package com.manhnd.cloudnative.books.domain;
 
-public record Book(String isbn, String title, String author, Double price) {}
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Positive;
+
+public record Book(
+    @NotBlank(message = "ISBN is mandatory")
+    @Pattern(regexp = "^(97(8|9))?\\d{9}(\\d|X)$", message = "ISBN is invalid")
+    String isbn,
+
+    @NotBlank(message = "Title is mandatory") String title,
+    @NotBlank(message = "Author is mandatory") String author,
+    @NotBlank(message = "Price is mandatory") @Positive(message = "Price must be greater than zero")
+        Double price) {}
